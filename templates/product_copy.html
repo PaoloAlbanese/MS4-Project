@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}
+    Product Detail
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5 mt-5"  style="height:100%;">
+    <div class="row mt-3" style="height:50%">
+        <div class="col-10 m-auto col-md-6 my-auto" style="display: flex;">
+            <img src="{{producto.image.url}}" alt="product image" style="margin-left: auto; margin-right: auto; width:50%;height:98%">
+        </div>
+        <div class="col-10 m-auto col-md-6 my-auto pt-5">
+            <div>
+                <h1 class="product-title" style="font-size:1.7rem" >{{producto.name}}</h1>
+                <h5 class="text-info font-italic-mb-3">
+					<span class="mr-1">€</span>{{producto.price}}
+				</h5>
+                <p class="product_description">Product Description</p>
+				<p class="text-justify product-text">{{producto.description}}</p>
+                {% if producto.stock == 0 %}
+                <p class="text-justify product-text text-danger"><b>Out of Stock</b></p>    
+                {% else %}
+                <a href="{% url 'add_cart' producto.id %}" class="text-primary" style="text-decoration: none!important">Add to Cart</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <div class="card mx-auto" style="border: 2px solid rgb(240, 173, 78);border-radius: 20px;width:90%;">
+  <div class="card-header">
+    {% if user.is_authenticated %}
+    <h4>Reviews</h4>
+    {% else %}
+        {% if reviews.count > 0 %}
+        <h4>Reviews</h4><a href="{% url 'signin' %}" style="text-decoration: none!important">Sign In </a>or <a href="{% url 'signup' %}" style="text-decoration: none!important">Sign Up</a> to write a review!</p>
+        {% else %}
+        <h4>Reviews</h4>
+        {% endif %}
+    {% endif %}
+  </div>
+    {% if user.is_authenticated %}
+    <div class="card-body">
+    <form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+    {% if reviews.count == 0 %}
+    <textarea name="content" class="form-control" placeholder="Type here to write the first review of {{producto.name}}!"></textarea>
+    {% else %}
+    <textarea name="content" class="form-control" placeholder="Type here your review of {{producto.name}}."></textarea>
+    {% endif %}
+    </div>
+    <div class="form-group">
+    <button type="submit" class="btn btn-success">Post</button>
+    </div>
+    </form>
+    </div>
+    {% endif %}
+    {% if reviews.count > 0 %}
+    
+    <ul style="list-style-type: none; padding: 0;">
+    {% for review in reviews %}
+        <li style="border-top: 1px solid rgb(240, 173, 78); padding:10px">
+		<h5><b>{{review.user.username}}</b></h5>
+        <p>{{review.reviewDate}}</p>
+        <h6 >{{review.content}}</h6>
+        </li>
+    {% endfor %}
+	</ul>
+    {% else %}
+        <div class="mx-auto">
+        {% if user.is_authenticated %}
+        {% else %}
+        <p class="px-2">There are no reviews for {{producto.name}} just yet .<br> <a href="{% url 'signin' %}" style="text-decoration: none!important">Sign In </a>or <a href="{% url 'signup' %}" style="text-decoration: none!important">Sign Up</a> to write the first review!</p>
+        {% endif %}
+        </div>
+    {% endif %}
+ 
+</div>
+</div>
+
+{% endblock %}

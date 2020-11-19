@@ -1,122 +1,187 @@
-{% load static %} 
+{% load static %}
+<!DOCTYPE html>
 
-<!doctype html>
 <html lang="en">
   <head>
+  
     {% block meta %}
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    {% endblock %}
-
-    {% block extra_meta %}
-    {% endblock %}
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    {% endblock %} 
     
     {% block corecss %}
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Srisakdi:wght@700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    {% endblock %}
 
-    {% block extra_css %}
-    {% endblock %}
-
-    {% block corejs %}
-        <script src="https://kit.fontawesome.com/c2cf02c5ba.js" crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-    {% endblock %}
-
-    {% block extra_js %}
-    {% endblock %}
-
-    <title>Sunny Side Shop {% block extra_title %}{% endblock %}</title>
-  </head>
-  <body>
-    <header class="container-fluid fixed-top">
-        <div id="topnav" class="row bg-white pt-lg-2 d-none d-lg-flex">
-            <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-center text-lg-left">
-                <a href="{% url 'home' %}" class="nav-link main-logo-link">
-                    <h2 class="logo-font text-black my-0"><strong>Sunny Side Shop</strong></h2>   
-                </a>
-            </div>
-            <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
-                <form method="GET" action="">
-                    <div class="input-group w-100">
-                        <input class="form-control btn btn-black border border-black rounded-0" type="text" name="q" placeholder="Search">
-                        <div class="input-group-append">
-                            <button class="from-control btn btn-black border border-black rounded-0" type="submit">
-                                <span>
-                                    <i class="fas fa-search"></i>
-                                </span>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
-                <ul class="list-inline list-unstyled text-center text-lg-right my-0">
-                    <li class="list-inline-item dropdown">
-                        <a class="text-black nav-link" href="#" id="user-option" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-                            <div class="text-center">
-                                <div><i class="fas fa-user fa-lg"></i></div>
-                                <p class="my-0">My Account</p>
-                            </div>
-                        </a>
-                        <div class="dropdown-menu border-0" aria-labelledby="user-options">
-                            {% if request.user.is_authenticated %}
-                                {% if request.user.is_superuser %}
-                                    <a href="" class="dropdown-item" >Product Management</a>
-                                {% endif %}
-                                <a href="" class="dropdown-item">My profile</a>
-                                <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
-                            {% else %}
-                                <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
-                                <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
-                            {% endif %}    
-                        </div>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="" class="{% if grand_total %}text-info font-weight-bold {% else %}text-black {% endif %} nav-link">
-                            <div class="text-center">
-                                <div><i class="fas fa-shopping-bag fa-lg"></i></div>
-                                <p class="my-0">
-                                    {% if grand_total %}
-                                        ${{ grand_total|floatformat:2 }}
-                                    {% else %}
-                                        $0.00
-                                    {% endif %}        
-                                </p>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="row bg-white">
-            <nav class="navbar navbar-expand-lg navbar-light w-100">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                {% include 'includes/mobile-top-header.html' %}
-                {% include 'includes/main-nav.html' %}
-            </nav>
-        </div>
-    </header>
     
-    {% if messages %}
-    <div class="messagge-container"></div>
-    {% endif %}
 
-    {% block page_header %}
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Srisakdi:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+    {% endblock %} 
+    
+    {% block corejs %}
+    <script src="{% static 'extraJS.js' %}" type="text/javascript"></script>
+    <script
+      src="https://kit.fontawesome.com/c2cf02c5ba.js"
+      crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+      crossorigin="anonymous"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js">
+	</script>
+    <!-- <script>window.__theme = 'bs4';</script> -->
+
+    <script type="text/javascript">
+// var elem = document.getElementById("contenuto");
+// var this_url = "{{this_url}}";
+// var referer_view ="{{referer_view}}";
+// var scrollpos = localStorage.getItem('scrollpos');
+// console.log(this_url);
+// console.log(referer_view);
+
+// document.addEventListener("DOMContentLoaded", function(event) { 
+//             var scrollpos = localStorage.getItem('scrollpos');
+//             // if (this_url == referer_view){
+//             // if (scrollpos) window.scrollTo(0, scrollpos);
+//             // console.log(scrollpos)
+//             // }
+//             // else{
+//             //     window.scrollTo(0, 0);
+//             // }
+            
+//             // if (this_url == referer_view){
+//             // if (scrollpos) {
+//             // elem.style.top = scrollpos;
+            
+//             // }
+//             // // else{
+//             // //     window.scrollTo(0, 0);
+//             // // }
+//             // }
+// };
+
+
+
+
+// document.addEventListener("DOMContentLoaded", provaSet);
+
+//  function provaSet(){
+//     var elem = document.getElementById("contenuto");
+//     var scrollpos = localStorage.getItem('scrollpos');
+//     var this_url = "{{this_url}}";
+//     var referer_view ="{{referer_view}}";
+//     console.log(this_url);
+// console.log(referer_view);
+//     // if (this_url == referer_view){
+//     //     if (scrollpos) window.scrollTo(0, scrollpos);
+//     //         console.log(scrollpos)
+//     //         }
+//     //         else{
+//     //             window.scrollTo(0, 0);
+//     //         }
+            
+//             if (this_url == referer_view){
+            
+//             if (scrollpos) {
+                
+//             document.getElementById("contenuto").style.top = scrollpos;
+//             // window.pageYOffset = scrollpos
+//             window.scroll(0,scrollpos)
+//             var x = elem.style.width;
+//             console.log('oh');
+//             }
+//             else{
+//                 window.scrollTo(0, 0);
+//                 console.log('stampo questo')
+//             }
+//             }
+
+
+
+// };
+
+
+
+
+//         window.addEventListener("scroll", SetScrollY);
+        
+//         function SetScrollY(){
+            
+//             localStorage.setItem('scrollpos', window.scrollY);
+//             var scrollpos = localStorage.getItem('scrollpos');
+//             console.log('ho settato io', scrollpos);
+//         };
+
+//         window.onbeforeunload = function(e) {
+//                 var scrollpos = localStorage.getItem('scrollpos');
+//                 elem.style.top = scrollpos;
+//             localStorage.setItem('scrollpos', window.scrollY);
+//             console.log('elem',elem);
+//         };
+
+
+
+</script>
+
+
+
+
+
+
     {% endblock %}
 
-    {% block content %}
+    <title>{% block title %} {% endblock %}</title>
+  </head>
+   
+  <!-- <body id="contenuto"  onpageshow="window.scroll(0, scrollpos)"> -->
+    <body id="contenuto">
+
+    {% include 'navbar.html' %} 
+
+
+
+    {% block content %} 
     {% endblock %}
 
-    {% block postloadjs %}
-    {% endblock %}
+    
 
+    <!-- <div class="btt-button border-warning bg-dark" id="backtotop" style="visibility:hidden; border-radius: 15px!important;z-index: 3;">
+      <a class="btt-link d-flex h-100" onclick="winTop()" >
+        <i class="fas fa-arrow-up text-warning mx-auto my-auto"></i>
+      </a>
+    </div> -->
+    
+    
+    
+    {% include 'footer.html' %}
   </body>
+    
+  
 </html>
+<script type="text/javascript">
+$(document).ready(function() {
+  document.getElementsByTagName("html")[0].style.visibility = "visible";
+});
+</script>

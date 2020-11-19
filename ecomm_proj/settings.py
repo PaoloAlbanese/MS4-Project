@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'home',
+    'products',
+    'stripe',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -71,6 +74,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'products.context_processor.category_menu_links',
+                'products.context_processor.manufactorer_menu_links',
+                'products.context_processor.counter',
             ],
         },
     },
@@ -149,7 +155,25 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+STRIPE_PUBLISHABLE_KEY = os.getenv ('STRIPE_PUBLISHABLE_KEY','')
+STRIPE_SECRET_KEY = os.getenv ('STRIPE_SECRET_KEY','')
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+EMAILJS_USER_ID = os.getenv ('EMAILJS_USER_ID','')
+EMAILJS_SIGNUP = os.getenv ('EMAILJS_SIGNUP','')
+EMAILJS_SENDORD = os.getenv ('EMAILJS_SENDORD','')
+
+# 'user_gGPlnQt0zy8DJY3fiCBPT'
+# 'template_98k3cty'
+
+# EMAILJS_USER_ID = 'user_gGPlnQt0zy8DJY3fiCBPT'
+# EMAILJS_SIGNUP = 'template_98k3cty'

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Add a New Brand 
+{% endblock %}
+
+{% block content %}
+<div>
+	{% if not bForm.is_valid %} 
+	<div class="mx-auto">
+		<br>
+		<h1 class="product_title text-center">
+			Add a New Manufactorer to the DB
+		</h1>
+		<br>
+		<div class="col-9 col-sm-9 col-md-6 col-lg-5 mx-auto bg-light">
+			<br>
+			<p>Please Enter the Name of the New Manufactorer</p>
+			<form method="post">
+				{% csrf_token %}
+				<p>{{ bForm | crispy }}</p>
+				<button type="submit" name="button" class="btn btn-primary" >Save Manufactorer</button>
+			</form>
+            <br>
+		</div>
+	</div>
+    
+    
+	{% else %} 
+    
+	<div class="mx-auto">
+		<br>
+		<h1 class="product_title text-center">Upload Successful </h1>
+        <br>
+		<br>
+		<div class="container">
+			<h3 style = "text-transform:capitalize;" > Dear {{dear}},</h3>
+            <h4>    
+				<br>
+                The Manufactorer {{name}} has been Added to the Database.
+                <br>
+                
+            </h4>
+		</div>
+
+
+	</div>
+	
+    {% endif %}
+</div>
+<br>
+
+
+
+{% endblock %}

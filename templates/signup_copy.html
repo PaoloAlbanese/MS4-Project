@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Create a New Account
+{% endblock %}
+
+{% block content %}
+<div>
+	{% if not form.is_valid %} 
+	<div class="mx-auto">
+		<br>
+		<h1 class="product_title text-center">
+			Create a New Account
+		</h1>
+		<br>
+		<div class="col-9 col-sm-9 col-md-6 col-lg-5 mx-auto bg-light">
+			<br>
+			<p>Enter the Following Information to Create a New Account</p>
+			<form method="post" onsubmit="return sendSignUp(this);">
+				{% csrf_token %}
+				<p>{{ form | crispy }}</p>
+				<button type="submit" name="button" class="btn btn-primary" >Sign Up</button>
+			</form>
+            <br>
+		</div>
+	</div>
+    
+    
+	{% else %} 
+    
+	<div class="mx-auto">
+		<br>
+		<h1 class="product_title text-center">Your Account has been successfully created</h1>
+		<br>
+		<div class="container">
+			<p>
+				Dear Customer,
+				<br>
+				<br>
+    Your account has been created and it is ready to use.
+                <br>
+                <br>
+                You may now login with your ID using <a href="{% url 'signin' %}">this link</a>
+				<br>
+                
+			</p>
+		</div>
+
+
+	</div>
+	{% endif %}
+</div>
+<br>
+
+
+
+{% endblock %}
