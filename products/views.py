@@ -608,7 +608,7 @@ def showAll(request):
 
     cart_items = ()
     in_cart=[]
-    # not_in_cart = []
+    not_in_cart = []
 
     if request.user.is_authenticated:
         try:
@@ -644,12 +644,12 @@ def showAll(request):
             in_cart.append(i.product.id)
         
 
-        # for i in Product.objects.all().iterator():
+        for i in Product.objects.all().iterator():
             
 
-        #     prod_id = i.id
-        #     if prod_id not in in_cart:
-        #         not_in_cart.append(prod_id)
+            prod_id = i.id
+            if prod_id not in in_cart:
+                not_in_cart.append(prod_id)
 
 
     if request.GET:

@@ -417,7 +417,7 @@ console.log(referer_view);
                                 {% endfor %}            
                                     
 
-                                {% for aitem in cart_items %}
+                                <!-- {% for aitem in cart_items %}
                                     {% if aitem.product.id == product.id and not forloop.last %}
                                         
                                         {% if aitem.quantity == product.stock %}
@@ -430,9 +430,9 @@ console.log(referer_view);
                                             <i class="fas fa-shopping-cart my-auto " style=""></i>
                                         {% endif %}                            
                                     {% endif %}                              
-                                {% endfor %} 
+                                {% endfor %}  -->
                                     
-                                <!-- {% for i in in_cart %}
+                                <!-- {% for i in in_cart %} # not needed here, after all
                                     {% if product.id == i %}
                                         {% if cart_items.product.i == product.stock %}
                                         <a href="{% url 'add_cart' product.id %}?source=ind" class=" my-auto mx-auto text-dark" onclick="SameScroll()"><i class="fas fa-plus" style=""></i></a>
@@ -441,18 +441,42 @@ console.log(referer_view);
                                     {% endif %}
                                 {% endfor %} -->
 
-                                
-                                {% for i in not_in_cart %} -->
-                                    {% if product.id == i %}
-                                        <a href="{% url 'add_cart' product.id %}?source=ind" class=" my-auto mx-auto "><i class="fas fa-plus" style=""></i></a>
-                                        <!-- <a href="{% url 'add_cart' product.id %}?source=ind" class=" my-auto mx-auto text-warning" onclick="SameScroll()"><i class="fas fa-plus" style=""></i></a> -->
+                                <!-- {% for i in not_in_cart %} # this was the solution
+                                     {% if product.id == i %}
+                                        <a href="{% url 'add_cart' product.id %}?source=ind" class=" my-auto mx-auto text-warning" onclick="SameScroll()"><i class="fas fa-plus" style=""></i></a>
                                         <i class="fas fa-shopping-cart my-auto " style=""></i>
                                         <span class=" my-auto mx-auto"></span>
                                     {% endif %}
+                                {% endfor %} -->
+                
+                                {% for aitem in cart_items %}
+                                    {% if not aitem.product.id == product.id %}
+                                        {% if aitem.quantity < product.stock  %}
+                                            <a href="{% url 'add_cart' product.id %}?source=ind" class=" my-auto mx-auto " onclick="SameScroll()"><i class="fas fa-euro-sign" style=""></i></a>
+                                            <!-- <a href="{% url 'add_cart' product.id %}?source=ind" class=" my-auto mx-auto " onclick="SameScroll()"><i class="fas fa-plus" style=""></i></a> -->
+                                            <i class="fas fa-shopping-cart my-auto " style=""></i>
+                                        {% endif %}
+                                        {% if aitem.quantity == product.stock %}
+                                            <i class="fas fa-ban my-auto my-auto mx-auto text-danger" style=""></i>
+                                            <i class="fas fa-mobile my-auto mx-auto" style=""></i>
+                                        {% endif %}    
+                                    {% endif %}
                                 {% endfor %}
-               
                                    
-                                
+                                <!-- {% for aitem in cart_items %}
+                                    {% if not aitem.product.id == product.id and not forloop.last %}
+                                        
+                                        {% if aitem.quantity == product.stock %}
+                                            <i class="fas fa-ban text-warning my-auto my-auto mx-auto" ></i>
+                                            <i class="fas fa-shopping-cart my-auto " style=""></i>
+                                        {% endif %}                            
+
+                                        {% if aitem.product.id == product.id and aitem.quantity < product.stock  %}
+                                            <a href="{% url 'add_cart' product.id %}?source=ind" class=" my-auto mx-auto text-warning" onclick="SameScroll()"><i class="fas fa-store" style=""></i></a>
+                                            <i class="fas fa-shopping-cart my-auto " style=""></i>
+                                        {% endif %}                            
+                                    {% endif %}                              
+                                {% endfor %}  -->
                                 
 
                             {% endif %}
