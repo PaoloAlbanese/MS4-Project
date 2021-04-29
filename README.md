@@ -3,4 +3,5 @@
 ## Test Repository
 
 Hi!
-This i just a test run repo for my MP4, the actual subsmission of which can be found at, along with any test finding in it's readme file.
+
+This i just a test run repo for my MP4, the actual subsmission of which is [Mobile_Central_MP4](https://github.com/PaoloAlbanese/Mobile_Central_MP4), the test finding are in it's readme file.
